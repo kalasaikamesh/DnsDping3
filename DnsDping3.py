@@ -5,10 +5,24 @@ import time
 import requests
 from colorama import init, Fore
 from scapy.all import *
+from rich.panel import Panel
 
 # Initialize Colorama
 init(autoreset=True)
 
+def banner():
+    banner ="""
+    [bold blue]
+       ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+       |||
+       |||                            DNSDPING3 
+       |||
+       |||
+       ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    
+    """
+    print(banner)
+    
 def check_sudo():
     """Check if the script is running with sudo privileges."""
     if os.geteuid() != 0:
@@ -67,6 +81,7 @@ def launch_flood( domain, dns_servers, verbose):
                 print(Fore.RED + f"Error during DNS flood: {e}")
 
 def main():
+    banner()
     check_sudo()  # Check for sudo permissions
     parser = argparse.ArgumentParser(description="DNS Flood Tool with Tor IP Spoofing")
     parser.add_argument('-d', required=True, help="Domain to flood")
