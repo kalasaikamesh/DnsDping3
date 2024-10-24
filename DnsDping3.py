@@ -21,20 +21,11 @@ def change_tor_ip():
         command = 'sudo service tor restart'
         subprocess.run(command, shell=True, check=True)
         time.sleep(1)  # Wait for Tor to change the IP
-        get_ip = get_tor_ip()
-        print(Fore.GREEN + f"Changed Tor IP address {get_ip} ")
+        print(Fore.GREEN + f"Changed Tor IP address ")
     except subprocess.CalledProcessError as e:
         print(Fore.RED + f"Error changing Tor IP {e}")
         exit(1)
 
-def get_tor_ip():
-    """Get the current Tor IP address by checking the exit node."""
-    try:
-        response = subprocess.check_output(['curl', '--socks5', 'localhost:9050', 'http://httpbin.org/ip'])
-        return response.decode('utf-8').strip()
-    except Exception as e:
-        print(Fore.RED + f"Error getting current Tor IP: {e}")
-        return "Unknown"
 
 def load_dns_servers(file_path):
     """Load DNS servers from a file."""
